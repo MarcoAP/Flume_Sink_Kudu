@@ -1,0 +1,34 @@
+# Vars
+agent.sources = s1
+agent.channels = c1
+agent.sinks = sk1
+
+# Data Source 1
+agent.sources.s1.type=spoolDir
+agent.sources.s1.channels=c1
+agent.sources.s1.spoolDir=/home/TC014550/flume/files
+agent.sources.s1.fileHeader = true
+agent.sources.s1.charset.default=UTF-8
+agent.sources.s1.decodeErrorPolicy = ignore
+#agent.sources.s1.charset.port.33333=UTF-8
+
+# Interceptor 1
+#agent.sources.s1.interceptors=intercept-1
+#agent.sources.s1.interceptors.intercept-1.type=timestamp
+
+# Channel 1
+agent.channels.c1.type = memory
+agent.channels.c1.capacity = 10000
+agent.channels.c1.transactionCapacity = 1000
+#agent.channels.c1.checkpointDir = /home/TC014550/flume/files/checkpoint
+#agent.channels.c1.dataDirs = /home/TC014550/flume/files/data
+
+# Sink 1
+agent.sinks.sk1.type=org.apache.kudu.flume.sink.KuduSink
+agent.sinks.sk1.masterAddresses = localhost
+agent.sinks.sk1.databaseName = kudu_tests
+agent.sinks.sk1.tableName = terere
+agent.sinks.sk1.channel = c1
+agent.sinks.sk1.batchSize = 50
+agent.sinks.sk1.producer = org.apache.kudu.flume.sink.RegexpKuduOperationsProducer
+agent.sinks.sk1.producer.pattern = (?<col1>\\d+)\\t(?<col2>\\d+)\\t(?<col3>.*)
