@@ -26,8 +26,7 @@ agent.channels.c1.transactionCapacity = 1000
 # Sink 1
 agent.sinks.sk1.type=org.apache.kudu.flume.sink.KuduSink
 agent.sinks.sk1.masterAddresses = localhost
-agent.sinks.sk1.databaseName = kudu_tests
-agent.sinks.sk1.tableName = terere
+agent.sinks.sk1.tableName = impala::kudu_tests.terere
 agent.sinks.sk1.channel = c1
 agent.sinks.sk1.batchSize = 50
 agent.sinks.sk1.producer = org.apache.kudu.flume.sink.RegexpKuduOperationsProducer
